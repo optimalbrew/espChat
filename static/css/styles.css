@@ -1,0 +1,83 @@
+/* Custom styles for the Spanish learning app */
+
+.conversation-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.message {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.message-user {
+    background-color: var(--bs-primary);
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 0;
+}
+
+.message-assistant {
+    background-color: var(--bs-secondary);
+    margin-right: auto;
+    border-bottom-left-radius: 0;
+}
+
+.message-system {
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 1rem auto;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    width: 80%;
+    text-align: center;
+}
+
+.feather {
+    width: 18px;
+    height: 18px;
+    vertical-align: text-bottom;
+}
+
+.feather-sm {
+    width: 16px;
+    height: 16px;
+}
+
+/* Audio player styling */
+.audio-player {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Loading indicator styling */
+#loadingIndicator {
+    margin: 2rem auto;
+}
+
+/* Styling for the audio controls */
+#playButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 0;
+}
+
+#playButton .feather {
+    width: 20px;
+    height: 20px;
+}
+
+/* Progress bar custom styling */
+.progress {
+    height: 8px;
+}
