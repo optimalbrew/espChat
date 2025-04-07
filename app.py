@@ -1,3 +1,5 @@
+'''This is the core file of the Flask application. See readme.md for more details.'''
+
 import os
 import logging
 import requests
