@@ -3,7 +3,7 @@
 The initial code was generated from replit using this prompt. 
 "make me an app to learn conversational spanish using a local LLM model such as llama3.2 from ollama for conversations with the agent. Use some text to speech software to convert the agent's response into audio so I can practice listening conversation"
 
-The Flask app uses Google TTS. intial version didn't work, bcos the replit env does not actually run ollama. When informed, it modified the code to use openAI API instead for LLM backend. For that, it asked for an OpenAI API key. I want to run this app locally - using ollama. 
+The Flask app uses Google TTS. intial version didn't work, bcos the replit env does not actually run ollama. When informed, it modified the code to use openAI API instead for LLM backend. For that, it asked for an OpenAI API key. I want to run this app locally - using ollama. Which is what the current version does. However, it still  needs a web connection for the TTS. This can be replaced with something like PiperTTS - but had problems installing it on MacOS on Apple silicon (dependency piper phenomenize). 
 
 
 ## Features
@@ -11,20 +11,75 @@ The Flask app uses Google TTS. intial version didn't work, bcos the replit env d
 - Context-aware responses for natural dialogue.
 - Customizable difficulty levels.
 
-## Getting Started
-1. Clone the repository.
-2. Install dependencies.
-3. Run the app and start practicing!
+
+## Running the app
+
+Clone the repository and install the dependencies - including Ollama with llama3.2!
+
+Best to run in venv e.g if already in directory then
+
+`python3 -m venv .` 
+
+Then
+
+`source bin/activate`
+
+Python Packages: If any packages are missing, you can install them with:
+
+`pip install flask flask-sqlalchemy gtts gunicorn requests`
+
+
+Running the Spanish Learning App Locally
+
+To run this app locally, you'll need to follow these steps:
+Prerequisites
+
+    Python 3.11 (already installed in this environment)
+    Ollama with the Llama 3.2 model
+    Required Python packages (already listed in the project)
+
+Step-by-Step Guide
+1. Install Ollama
+
+2. Pull the Llama 3.2 Model e.g `ollama pull llama3.2` from terminal
+
+3. Run Ollama
+
+Start the Ollama server in a terminal:
+
+`ollama serve` .. can set it to autostart, so this is not needed
+
+This will start Ollama on localhost:11434, which is what our app expects.
+
+4. Start the Flask Application
+
+`gunicorn --bind 0.0.0.0:5001 --reuse-port --reload main:app`
+
+5. Access the Application
+
+Once the Flask app is running, you can access it through your web browser:
+
+    In a local environment: http://localhost:5001
+
+Troubleshooting
+
+    Ollama Connection Error: If you see errors about failing to connect to Ollama, make sure the Ollama server is running on localhost:11434.
+
+    Audio Not Playing: Some browsers may block autoplay of audio. You might need to click the play button manually the first time.
+
+Using the App
+
+    Select your language level (beginner, intermediate, advanced)
+    Choose a conversation topic
+    Type a message in English or Spanish
+    The app will respond in Spanish and generate audio
+    Listen to the pronunciation and continue the conversation
+
+
 
 ## Directory Structure
 
-I asked replit to walk me through the directory explaining the role of main files. Below is the reponse
 
-### Replit's explanation of the code
-
-Spanish Learning Conversation App Directory Overview
-
-Let me walk you through the main files in this application and explain their functions:
 Main Application Files
 1. `app.py`
 
@@ -48,7 +103,7 @@ This is a simple entry point file that:
 
     Imports the Flask app from app.py
     Sets up logging for easier debugging
-    Runs the Flask server on port 5000, accessible from any IP (0.0.0.0)
+    Runs the Flask server on port 5001, accessible from any IP (0.0.0.0) .. initially the port was 5000, but I had something running on that already (apparently).  
 
 Frontend Files
 3. `templates/index.html`
@@ -96,81 +151,8 @@ The application is designed to help users practice conversational Spanish by pro
     Conversation topics relevant to real-world scenarios
     A clean, intuitive interface for practice sessions
 
-Note: To make this app fully functional, you need to have Ollama installed locally with the Llama 3.2 model. The application expects Ollama to be running on localhost:11434.
-
-## Running the app
-Asked replit to provide a walk through of how to run the app locally. This is the response.
-
-Running the Spanish Learning App Locally
-
-To run this app locally, you'll need to follow these steps:
-Prerequisites
-
-    Python 3.11 (already installed in this environment)
-    Ollama with the Llama 3.2 model
-    Required Python packages (already listed in the project)
-
-Step-by-Step Guide
-1. Install Ollama
-
-First, you need to install Ollama, which is a tool to run LLMs locally.
-
-# On macOS or Linux
-curl -fsSL https://ollama.com/install.sh | sh
-
-# On Windows
-# Download from https://ollama.com/download
-
-2. Pull the Llama 3.2 Model
-
-After installing Ollama, you need to pull the Llama 3.2 model:
-
-ollama pull llama3.2
-
-This might take some time as it's downloading a large language model.
-3. Run Ollama
-
-Start the Ollama server in a terminal:
-
-ollama serve
-
-This will start Ollama on localhost:11434, which is what our app expects.
-4. Start the Flask Application
-
-Now, you can start the Flask application. Since we're in a Replit environment, we can use the workflow:
-
-# Use Replit's workflow
-restart_workflow "Start application"
-
-# Or run directly with
-gunicorn --bind 0.0.0.0:5001 --reuse-port --reload main:app
-
-5. Access the Application
-
-Once the Flask app is running, you can access it through your web browser:
-
-    In a local environment: http://localhost:5001
-    In Replit: Use the webview or the provided URL
-
-Troubleshooting
-
-    Ollama Connection Error: If you see errors about failing to connect to Ollama, make sure the Ollama server is running on localhost:11434.
-    Missing Python Packages: If any packages are missing, you can install them with:
-
-    pip install flask flask-sqlalchemy gtts gunicorn requests
-
-    Audio Not Playing: Some browsers may block autoplay of audio. You might need to click the play button manually the first time.
-
-Using the App
-
-    Select your language level (beginner, intermediate, advanced)
-    Choose a conversation topic
-    Type a message in English or Spanish
-    The app will respond in Spanish and generate audio
-    Listen to the pronunciation and continue the conversation
-
-Let me know if you'd like to test the application or if you run into any issues!
+Note: You need to have Ollama installed locally with the Llama 3.2 model. The application expects Ollama to be running on localhost:11434
 
 
 ## License
-Not sure. The initial code was generated by replit
+Not sure. I am not placing any restrictions of any kind. MIT would be nice. However, the initial code was generated by replit.com
